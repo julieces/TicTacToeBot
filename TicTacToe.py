@@ -7,15 +7,15 @@ def generateBoard(corners, middles, center):
     print(" %s | %s | %s\n ---------\n %s | %s | %s\n ---------\n %s | %s | %s\n" % (corners[0], middles[0], corners[1], middles[1], center, middles[2], corners[2], middles[3], corners[3]))
     #print("%s|%s" % (boardArray[0], boardArray[1]))
 
-def setNonSpec(thingToSet, mode, where):
-    if mode == "corners":
-        setCorners(thingToSet, where)
-    elif mode == "middles":
-        setMiddles(thingToSet, where)
-    elif mode == "center":
-        thingToSet = "x"
-    else:
-        print("Error: no valid case")
+# def setNonSpec(thingToSet, mode, where):
+#     if mode == "corners":
+#         setCorners(thingToSet, where)
+#     elif mode == "middles":
+#         setMiddles(thingToSet, where)
+#     elif mode == "center":
+#         thingToSet = "x"
+#     else:
+#         print("Error: no valid case")
 
 def setCorners(corners, where):
     if where == "ul":
@@ -31,13 +31,13 @@ def setCorners(corners, where):
 
 def setMiddles(middles, where):
     if where == "u":
-        corners[0] = "x"
+        middles[0] = "x"
     elif where == "l":
-        corners[1] = "x"
+        middles[1] = "x"
     elif where == "r":
-        corners[2] = "x"
+        middles[2] = "x"
     elif where == "b":
-        corners[3] = "x"
+        middles[3] = "x"
     else:
         print("Error: no valid case")
 
@@ -64,9 +64,31 @@ for i in range(0, 4):
 
 #square in the center of the board
 center = " "
+location = ""
 
-generateBoard(corners, middles, center)
+#generateBoard(corners, middles, center)
 
-# while(stop != "y"):
-#     generateBoard(corners, middles, center)
-#     stop = input("Would you like to stop? (y/n) ")
+while(True):
+    # stop = input("Would you like to stop? (y/n) ")
+    #
+    # if stop == "y":
+    #     break
+
+    generateBoard(corners, middles, center)
+    location = input("Where would you like to place? ")
+
+    if location == "ul" or location == "ur" or location == "ll" or location == "lr":
+        setCorners(corners, location)
+    elif location == "u" or location == "r" or location == "l" or location == "b":
+        setMiddles(middles, location)
+    elif location == "center":
+        center = "x"
+    else:
+        print("Error: no valid case")
+
+    generateBoard(corners, middles, center)
+
+    stop = input("Would you like to stop? (y/n) ")
+
+    if stop == "y":
+        break
