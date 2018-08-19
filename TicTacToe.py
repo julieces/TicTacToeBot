@@ -1,6 +1,8 @@
 #Julie Cestaro
 #11 August 2018
 
+import random
+
 def generateBoard(corners, middles, center):
     #someInt = 0
     #print("hello\nworld %d" % someInt)
@@ -41,6 +43,19 @@ def setMiddles(middles, where):
     else:
         print("Error: no valid case")
 
+def computerPlace(corners, middles, center):
+    location = random.randint(0,3)
+    subsetOfLocation = random.randint(0,4)
+
+    if location == 0:
+        corners[subsetOfLocation] = "o"
+    elif location == 1:
+        middles[subsetOfLocation] = "o"
+    else:
+        center = "o"
+
+    return corners, middles, center
+
 
 stop = ""
 
@@ -66,7 +81,7 @@ for i in range(0, 4):
 center = " "
 location = ""
 
-#generateBoard(corners, middles, center)
+generateBoard(corners, middles, center)
 
 while(True):
     # stop = input("Would you like to stop? (y/n) ")
@@ -74,7 +89,6 @@ while(True):
     # if stop == "y":
     #     break
 
-    generateBoard(corners, middles, center)
     location = input("Where would you like to place? ")
 
     if location == "ul" or location == "ur" or location == "ll" or location == "lr":
@@ -92,3 +106,6 @@ while(True):
 
     if stop == "y":
         break
+
+    corners, middles, center = computerPlace(corners, middles, center)
+    generateBoard(corners, middles, center)
