@@ -41,21 +41,37 @@ def setMiddles(middles, where):
         print("Error: no valid case")
 
 def canPlace(array, index):
-    if array[index] == " ":
-        return True
+    print("array size: %d" % (len(array)))
+    print("index: %d" % (index))
+    if index == -1:
+        if array == " ":
+            return True
+        else:
+            return False
     else:
-        return False
+        if array[index] == " ":
+            return True
+        else:
+            return False
 
 def computerPlace(corners, middles, center):
-    location = random.randint(0,3)
-    subsetOfLocation = random.randint(0,4)
+    placed = False
 
-    if location == 0:
-        corners[subsetOfLocation] = "o"
-    elif location == 1:
-        middles[subsetOfLocation] = "o"
-    else:
-        center = "o"
+    while(!placed):
+        location = random.randint(0,2)
+        subsetOfLocation = random.randint(0,3)
+
+        if location == 0 and canPlace(corners, subsetOfLocation):
+            corners[subsetOfLocation] = "o"
+            placed = True
+        elif location == 1 and canPlace(middles, subsetOfLocation):
+            middles[subsetOfLocation] = "o"
+            placed = True
+        elif location == 2 and canPlace(center, -1):
+            center = "o"
+            placed = True
+        else:
+            print("Error: no valid case")
 
     return corners, middles, center
 
@@ -87,7 +103,7 @@ while(True):
         setCorners(corners, location)
     elif location == "u" or location == "r" or location == "l" or location == "b":
         setMiddles(middles, location)
-    elif location == "center":
+    elif location == "center" and canPlace(center, -1):
         center = "x"
     else:
         print("Error: no valid case")
