@@ -4,10 +4,7 @@
 import random
 
 def generateBoard(corners, middles, center):
-    #someInt = 0
-    #print("hello\nworld %d" % someInt)
     print(" %s | %s | %s\n ---------\n %s | %s | %s\n ---------\n %s | %s | %s\n" % (corners[0], middles[0], corners[1], middles[1], center, middles[2], corners[2], middles[3], corners[3]))
-    #print("%s|%s" % (boardArray[0], boardArray[1]))
 
 # def setNonSpec(thingToSet, mode, where):
 #     if mode == "corners":
@@ -20,28 +17,34 @@ def generateBoard(corners, middles, center):
 #         print("Error: no valid case")
 
 def setCorners(corners, where):
-    if where == "ul":
+    if where == "ul" and canPlace(corners, 0):
         corners[0] = "x"
-    elif where == "ur":
+    elif where == "ur" and canPlace(corners, 0):
         corners[1] = "x"
-    elif where == "ll":
+    elif where == "ll" and canPlace(corners, 0):
         corners[2] = "x"
-    elif where == "lr":
+    elif where == "lr" and canPlace(corners, 0):
         corners[3] = "x"
     else:
         print("Error: no valid case")
 
 def setMiddles(middles, where):
-    if where == "u":
+    if where == "u" and canPlace(middles, 0):
         middles[0] = "x"
-    elif where == "l":
+    elif where == "l" and canPlace(middles, 0):
         middles[1] = "x"
-    elif where == "r":
+    elif where == "r" and canPlace(middles, 0):
         middles[2] = "x"
-    elif where == "b":
+    elif where == "b" and canPlace(middles, 0):
         middles[3] = "x"
     else:
         print("Error: no valid case")
+
+def canPlace(array, index):
+    if array[index] == " ":
+        return True
+    else:
+        return False
 
 def computerPlace(corners, middles, center):
     location = random.randint(0,3)
@@ -56,14 +59,7 @@ def computerPlace(corners, middles, center):
 
     return corners, middles, center
 
-
 stop = ""
-
-#where positions 0-2 are the top row, 3-5 are the middle, 6-8 are bottom
-#boardState = []
-#initialize boardState
-# for i in range(0, 9):
-#     boardState.append(" ")
 
 #where 0 is upper left, 1 is upper right, 2 is lower left, 3 is lower right
 corners = []
@@ -84,10 +80,6 @@ location = ""
 generateBoard(corners, middles, center)
 
 while(True):
-    # stop = input("Would you like to stop? (y/n) ")
-    #
-    # if stop == "y":
-    #     break
 
     location = input("Where would you like to place? ")
 
