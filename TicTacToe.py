@@ -57,7 +57,7 @@ def canPlace(array, index):
 def computerPlace(corners, middles, center):
     placed = False
 
-    while(!placed):
+    while(not placed):
         location = random.randint(0,2)
         subsetOfLocation = random.randint(0,3)
 
@@ -99,14 +99,20 @@ while(True):
 
     location = input("Where would you like to place? ")
 
-    if location == "ul" or location == "ur" or location == "ll" or location == "lr":
-        setCorners(corners, location)
-    elif location == "u" or location == "r" or location == "l" or location == "b":
-        setMiddles(middles, location)
-    elif location == "center" and canPlace(center, -1):
-        center = "x"
-    else:
-        print("Error: no valid case")
+    placed = False
+
+    while(not placed):
+        if location == "ul" or location == "ur" or location == "ll" or location == "lr":
+            setCorners(corners, location)
+            placed = True
+        elif location == "u" or location == "r" or location == "l" or location == "b":
+            setMiddles(middles, location)
+            placed = True
+        elif location == "center" and canPlace(center, -1):
+            center = "x"
+            placed = True
+        else:
+            print("Error: cannot place there, please try again")
 
     generateBoard(corners, middles, center)
 
