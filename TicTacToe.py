@@ -97,11 +97,11 @@ generateBoard(corners, middles, center)
 
 while(True):
 
-    location = input("Where would you like to place? ")
-
     placed = False
 
     while(not placed):
+        location = input("Where would you like to place? ")
+
         if location == "ul" or location == "ur" or location == "ll" or location == "lr":
             setCorners(corners, location)
             placed = True
