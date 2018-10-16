@@ -4,11 +4,13 @@
 import random
 
 def generateBoard(corners, middles, center):
-    print(" {} | {} | {}".format(corners[0], middles[0], corners[1]))
+    # the new "".format function is awesome, you can name where things go
+    # also it can do all the stuff the other format structure could
+    print(" {ul} | {u} | {ur}".format(ul=corners[0], u=middles[0], ur=corners[1]))
     print(" ---------")
-    print(" {} | {} | {}".format(middles[1], center, middles[2]))
+    print(" {l} | {center} | {r}".format(l=middles[1], center=center, r=middles[2]))
     print(" ---------")
-    print(" {} | {} | {}".format(corners[2], middles[3], corners[3]))
+    print(" {bl} | {b} | {br}".format(bl=corners[2], b=middles[3], br=corners[3]))
 
 # def setNonSpec(thingToSet, mode, where):
 #     if mode == "corners":
