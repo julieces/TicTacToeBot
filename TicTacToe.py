@@ -4,7 +4,13 @@
 import random
 
 def generateBoard(corners, middles, center):
-    print(" %s | %s | %s\n ---------\n %s | %s | %s\n ---------\n %s | %s | %s\n" % (corners[0], middles[0], corners[1], middles[1], center, middles[2], corners[2], middles[3], corners[3]))
+    # the new "".format function is awesome, you can name where things go
+    # also it can do all the stuff the other format structure could
+    print(" {ul} | {u} | {ur}".format(ul=corners[0], u=middles[0], ur=corners[1]))
+    print(" ---------")
+    print(" {l} | {center} | {r}".format(l=middles[1], center=center, r=middles[2]))
+    print(" ---------")
+    print(" {bl} | {b} | {br}".format(bl=corners[2], b=middles[3], br=corners[3]))
 
 # def setNonSpec(thingToSet, mode, where):
 #     if mode == "corners":
@@ -40,19 +46,14 @@ def setMiddles(middles, where):
     else:
         print("Error: no valid case")
 
-def canPlace(array, index):
-    print("array size: %d" % (len(array)))
-    print("index: %d" % (index))
+
+#Default index to -1, so I can leave out that when doing center
+def canPlace(array, index=-1):
+    print("array size: {}" .format(len(array)))
+    print("index: {}".format(index))
     if index == -1:
-        if array == " ":
-            return True
-        else:
-            return False
-    else:
-        if array[index] == " ":
-            return True
-        else:
-            return False
+        return array == " "
+    return array[index] == " "
 
 def computerPlace(corners, middles, center):
     placed = False
@@ -67,7 +68,7 @@ def computerPlace(corners, middles, center):
         elif location == 1 and canPlace(middles, subsetOfLocation):
             middles[subsetOfLocation] = "o"
             placed = True
-        elif location == 2 and canPlace(center, -1):
+        elif location == 2 and canPlace(center):
             center = "o"
             placed = True
         else:
@@ -77,17 +78,13 @@ def computerPlace(corners, middles, center):
 
 stop = ""
 
-#where 0 is upper left, 1 is upper right, 2 is lower left, 3 is lower right
-corners = []
 #initialize corners
-for i in range(0, 4):
-    corners.append(" ")
+#where 0 is upper left, 1 is upper right, 2 is lower left, 3 is lower right
+corners = [" " for i in range(0, 4)]
 
-#where 0 is upper row center, 1 is left column center, 2 is right column center, 3 is bottom row center
-middles = []
 #initialize middles
-for i in range(0, 4):
-    middles.append(" ")
+#where 0 is upper row center, 1 is left column center, 2 is right column center, 3 is bottom row center
+middles = [" " for i in range(0, 4)]
 
 #square in the center of the board
 center = " "
@@ -108,7 +105,7 @@ while(True):
         elif location == "u" or location == "r" or location == "l" or location == "b":
             setMiddles(middles, location)
             placed = True
-        elif location == "center" and canPlace(center, -1):
+        elif location == "center" and canPlace(center):
             center = "x"
             placed = True
         else:
